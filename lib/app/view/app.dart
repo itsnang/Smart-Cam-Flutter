@@ -12,8 +12,6 @@ class StartPage extends StatefulWidget {
 class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
-    // BottomNavConroller bottomNavCtr = Get.put(BottomNavConroller());
-
     final Future<String> timer =
         Future<String>.delayed(const Duration(seconds: 2), () => "");
 
