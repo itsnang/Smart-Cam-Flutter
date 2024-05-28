@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:update_her/app/services/telegram_init.dart';
+import 'package:update_her/app/services/telegram_service.dart';
 import 'package:update_her/app/view/app.dart';
 
-void main() {
+import 'app_bloc/cubit/send_message_cubit.dart';
+
+void main() async {
+  await BaseTelegramService.instance.initSdk();
   runApp(const MyApp());
 }
 
@@ -16,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeCubit().state,
       home: BlocProvider(
-        create: (context) => ThemeCubit(),
+        create: (context) => SendMessageCubit(),
         child: const StartPage(),
       ),
     );
