@@ -14,7 +14,6 @@ class TelegramService extends AbsAnalyticServiceAdapter {
     final username = (await Telegram(botToken).getMe()).username;
     teledart = TeleDart(botToken, Event(username ?? ''));
     teledart.start();
-    await teledart.sendMessage(groupId, 'Bot started!');
   }
 
   @override
