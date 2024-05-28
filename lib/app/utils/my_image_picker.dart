@@ -8,7 +8,6 @@ class MyImagePicker {
 
   Future<String?> pickImage({
     required ImageSource source,
-    bool isCrop = false,
   }) async {
     final image = await _picker.pickImage(source: source);
     final path = image?.path;
