@@ -13,6 +13,8 @@ class TelegramService extends AbsAnalyticServiceAdapter {
   Future<void> init() async {
     final username = (await Telegram(botToken).getMe()).username;
     teledart = TeleDart(botToken, Event(username ?? ''));
+    teledart.getUpdates(timeout: 300000);
+
     teledart.start();
   }
 
