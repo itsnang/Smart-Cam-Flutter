@@ -18,7 +18,7 @@ class SendMessageCubit extends Cubit<SendMessageState> {
 
   Future<void> sendImage({File? photo}) async {
     emit(const SendMessageState.loading());
-    BaseTelegramService.instance.sendPhoto(chatId: '', photo: photo!);
+    BaseTelegramService.instance.sendPhoto(photo: photo!);
     emit(SendMessageState.sendImage());
   }
 }
