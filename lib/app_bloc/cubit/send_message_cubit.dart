@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:update_her/app/enum/state_status_enum.dart';
 import 'package:update_her/app/extension/bloc_extension.dart';
@@ -17,9 +16,9 @@ class SendMessageCubit extends CubitSafe<SendMessageState> {
     emit(state.copyWith(status: StateStatus.success, filePath: filePath));
   }
 
-  // Future<void> sendImage({File? photo}) async {
-  //   emit(const SendMessageState.loading());
-  //   BaseTelegramService.instance.sendPhoto(photo: photo!);
-  //   emit(SendMessageState.sendImage());
-  // }
+  Future<void> sendImage({required String filePath}) async {
+    emit(state.copyWith(status: StateStatus.loading));
+    await BaseTelegramService.instance.sendPhoto(photo: File(filePath));
+    emit(state.copyWith(status: StateStatus.success, filePath: null));
+  }
 }

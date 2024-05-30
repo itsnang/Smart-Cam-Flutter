@@ -19,13 +19,13 @@ class TelegramService extends AbsAnalyticServiceAdapter {
   }
 
   @override
-  void sendPhoto({File? photo}) {
+  Future<void> sendPhoto({File? photo}) async {
     log('======> $photo');
     try {
       if (photo == null) {
         return;
       }
-      teledart.sendPhoto(groupId, photo);
+      await teledart.sendPhoto(groupId, photo);
     } catch (e) {
       rethrow;
     }

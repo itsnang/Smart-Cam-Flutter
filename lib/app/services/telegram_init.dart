@@ -16,6 +16,6 @@ class BaseTelegramService extends WidgetsBindingObserver {
   }
 
   Future<void> sendPhoto({required File photo}) async {
-    _services.sendPhoto(photo: photo);
+    await _services.sendPhoto(photo: photo);
   }
 }

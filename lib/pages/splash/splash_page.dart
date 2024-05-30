@@ -29,7 +29,7 @@ class SplashScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text("Made by"),
-                      Text("Bro Chhay",
+                      Text("Chhay Chhay",
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 21))
                     ]),

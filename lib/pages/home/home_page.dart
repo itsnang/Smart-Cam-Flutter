@@ -9,6 +9,7 @@ import 'package:update_her/app/assets/images.dart';
 import 'package:update_her/app/enum/state_status_enum.dart';
 import 'package:update_her/app/utils/my_image_picker.dart';
 import 'package:update_her/app/widgets/bottom_shadow_container.dart';
+import 'package:update_her/app/widgets/dialong/loading_dialog.dart';
 import 'package:update_her/app/widgets/my_button.dart';
 import 'package:update_her/app_bloc/cubit/send_message_cubit.dart';
 
@@ -27,18 +28,32 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> _onSendMessage(String filePath) async {
+      context.read<SendMessageCubit>().sendImage(filePath: filePath);
+    }
+
     return Scaffold(
       body: Center(
-        child: BlocBuilder<SendMessageCubit, SendMessageState>(
-            builder: (ctx, state) {
-          if (state.status.isSuccess) {
-            return Image.file(
-              File(state.filePath!),
-            );
-          }
+        child: BlocListener<SendMessageCubit, SendMessageState>(
+          listener: (context, state) {
+            if (state.status.isLoading) {
+              context.showLoadingDialog();
+            }
+            if (state.status.isSuccess) {
+              context.dismissLoadingDialog();
+            }
+          },
+          child: BlocBuilder<SendMessageCubit, SendMessageState>(
+              builder: (ctx, state) {
+            if (state.filePath != null) {
+              return Image.file(
+                File(state.filePath!),
+              );
+            }
 
-          return ImageAsset.of(1, 200, 200).takePicture;
-        }),
+            return ImageAsset.of(1, 200, 200).takePicture;
+          }),
+        ),
       ),
       bottomNavigationBar: BottomShadowContainer(
         hideShadow: true,
@@ -60,7 +75,12 @@ class _HomePageState extends State<HomePage> {
               if (state.filePath != null) {
                 return MyButton.light(
                   'Send Image',
-                  onPressed: () {},
+                  onPressed: () {
+                    if (state.filePath == null) {
+                      return;
+                    }
+                    _onSendMessage(state.filePath!);
+                  },
                 );
               }
               return const SizedBox();
