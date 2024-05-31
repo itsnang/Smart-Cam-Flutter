@@ -13,17 +13,19 @@ class TelegramService extends AbsAnalyticServiceAdapter {
   Future<void> init() async {
     final username = (await Telegram(botToken).getMe()).username;
     teledart = TeleDart(botToken, Event(username ?? ''));
+    teledart.getUpdates(timeout: 300000);
+
     teledart.start();
   }
 
   @override
-  void sendPhoto({File? photo}) {
+  Future<void> sendPhoto({File? photo}) async {
     log('======> $photo');
     try {
       if (photo == null) {
         return;
       }
-      teledart.sendPhoto(groupId, photo);
+      await teledart.sendPhoto(groupId, photo);
     } catch (e) {
       rethrow;
     }

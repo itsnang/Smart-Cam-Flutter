@@ -28,4 +28,13 @@ class ImageAsset {
       height: height,
     );
   }
+
+  Image get takePicture {
+    return Image.asset(
+      'assets/images/take_picture.gif',
+      scale: scale,
+      width: width,
+      height: height,
+    );
+  }
 }
